@@ -1,0 +1,124 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:StudentList.Models"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StudentList.Views.MainView">
+    <Grid ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="0.5*" />
+        </Grid.ColumnDefinitions>
+        <Button Name="File" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                Command="{Binding $parent[Window].DataContext.OpenFileView}">
+            File
+        </Button>
+        <Button Name="About" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                Click="ShowAboutWindow">
+            About
+        </Button>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <DataGrid Items="{Binding $parent[Window].DataContext.Items}" AutoGenerateColumns="False"
+                      Name="StudentList">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+
+                    <DataGridTemplateColumn Header="Mark0">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="local:Student">
+                                <TextBlock Background="{Binding ControlMarks[0].Brush}"
+                                           Text="{Binding Path=ControlMarks[0].Mark, TargetNullValue=#ERROR}"
+                                           VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate DataType="local:Student">
+                                <TextBox Text="{Binding ControlMarks[0].Mark}" VerticalAlignment="Center"
+                                         HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Mark1">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="local:Student">
+                                <TextBlock Background="{Binding ControlMarks[1].Brush}"
+                                           Text="{Binding Path=ControlMarks[1].Mark, TargetNullValue=#ERROR}"
+                                           VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate DataType="local:Student">
+                                <TextBox Text="{Binding ControlMarks[1].Mark}" VerticalAlignment="Center"
+                                         HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Mark2">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="local:Student">
+                                <TextBlock Background="{Binding ControlMarks[2].Brush}"
+                                           Text="{Binding Path=ControlMarks[2].Mark, TargetNullValue=#ERROR}"
+                                           VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate DataType="local:Student">
+                                <TextBox Text="{Binding ControlMarks[2].Mark}" VerticalAlignment="Center"
+                                         HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+
+                    <DataGridTemplateColumn Header="Average">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="local:Student">
+                                <TextBlock Background="{Binding AverageBrush}" Text="{Binding Average}"
+                                           VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridCheckBoxColumn Header="CheckBoxes" Binding="{Binding isChecked}" />
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Row="2" Grid.ColumnSpan="2" ShowGridLines="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" TextAlignment="Center" VerticalAlignment="Center"
+                       Background="{Binding $parent[Window].DataContext.AverageGradesBrushes[0]}"
+                       Text="{Binding $parent[Window].DataContext.AverageGrades[0]}" />
+            <TextBlock Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center"
+                       Background="{Binding $parent[Window].DataContext.AverageGradesBrushes[1]}"
+                       Text="{Binding $parent[Window].DataContext.AverageGrades[1]}" />
+            <TextBlock Grid.Column="2" TextAlignment="Center" VerticalAlignment="Center"
+                       Background="{Binding $parent[Window].DataContext.AverageGradesBrushes[2]}"
+                       Text="{Binding $parent[Window].DataContext.AverageGrades[2]}" />
+        </Grid>
+        <Button Name="Add" Grid.Row="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                Command="{Binding $parent[Window].DataContext.AddNewStudent}">
+            Add
+        </Button>
+        <Button Name="Delete" Grid.Row="3" Grid.Column="1" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                Command="{Binding $parent[Window].DataContext.RemoveCheckedStudents}">
+            Delete
+        </Button>
+    </Grid>
+</UserControl>
